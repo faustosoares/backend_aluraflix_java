@@ -42,6 +42,9 @@ public class CategoriaController {
 	@Autowired
 	private CategoriaRepository repository;
 	
+	@Autowired
+	private VideoRepository videoRepository;
+	
 	@GetMapping
 	public Page<CategoriaDto> lista(@RequestParam(required = false) String titulo,
 			@PageableDefault(sort = "titulo", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao) {
@@ -97,6 +100,21 @@ public class CategoriaController {
 		
 		return ResponseEntity.notFound().build();
 	}
+	
+	@GetMapping("/{id}/videos")
+	public Page<VideoDto> listarVideosDaCategoria(@PathVariable Long id,
+			@PageableDefault(sort = "titulo", direction = Direction.ASC, page = 0, size = 10) Pageable paginacao) {
+		
+		Optional<Categoria> opCategoria = repository.findById(id);
+		if(opCategoria.isPresent()) {
+			Page<Video> videosDaCategoria = videoRepository.findByCategoria(opCategoria.get(), paginacao);	
+			return VideoDto.converter(videosDaCategoria); 
+		}
+		
+		return null;
+	}
+	
+	
 	
 	
 	

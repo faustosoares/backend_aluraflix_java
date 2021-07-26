@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +19,9 @@ public class Video {
 	private String descricao;
 	private String url;
 	
+	@ManyToOne
+	private Categoria categoria;
+	
 	public Video() {}
 	
 	public Video(String titulo, String descricao, String url) {
@@ -25,6 +29,14 @@ public class Video {
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.url = url;
+	}
+	
+	public Video(String titulo, String descricao, String url, Categoria categoria) {
+		super();
+		this.titulo = titulo;
+		this.descricao = descricao;
+		this.url = url;
+		this.categoria = categoria;
 	}
 
 	public Long getId() {
@@ -52,10 +64,20 @@ public class Video {
 		this.url = url;
 	}
 
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
 	@Override
 	public String toString() {
-		return "Video [id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", url=" + url + "]";
+		return "Video [id=" + id + ", titulo=" + titulo + ", descricao=" + descricao + ", url=" + url + ", categoria="
+				+ categoria + "]";
 	}
+	
 	
 	
 }
