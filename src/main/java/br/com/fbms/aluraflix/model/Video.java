@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(schema = "aluraflix", name = "filme")
+@Table(schema = "aluraflix", name = "video")
 public class Video {
 
 	@Id
